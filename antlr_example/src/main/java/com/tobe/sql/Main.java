@@ -12,6 +12,9 @@ public class Main {
         SqlBaseLexer lexer = new SqlBaseLexer(CharStreams.fromString(sqlText));
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         SqlBaseParser parser = new SqlBaseParser(tokenStream);
+        MyErrorListener errorListener = new MyErrorListener();
+        parser.addErrorListener(errorListener);
+
         parser.singleStatement().accept(visitor);
     }
 
