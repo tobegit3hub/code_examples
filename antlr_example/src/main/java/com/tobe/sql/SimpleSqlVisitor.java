@@ -3,7 +3,7 @@ package com.tobe.sql;
 import com.tobe.sql.SqlBaseBaseVisitor;
 import com.tobe.sql.SqlBaseParser.*;
 
-public class MySqlVisitor extends SqlBaseBaseVisitor {
+public class SimpleSqlVisitor extends SqlBaseBaseVisitor {
 
     @Override
     public String visitFromClause(SqlBaseParser.FromClauseContext ctx) {
