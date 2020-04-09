@@ -28,21 +28,31 @@ target_link_libraries(school_demo student school)
 include(UseSWIG)
 
 set_property(SOURCE school.i PROPERTY CPLUSPLUS ON)
-set_property(SOURCE school.i PROPERTY SWIG_MODULE_NAME java_school)
+set_property(SOURCE school.i PROPERTY SWIG_MODULE_NAME python_school)
+
+swig_add_library(python_school
+  TYPE SHARED
+  LANGUAGE python
+  OUTPUT_DIR ${PROJECT_SOURCE_DIR}/python/school/
+  SOURCES	school.i)
+  target_include_directories(python_school PRIVATE /usr/local/Cellar/python@3.8/3.8.2/Frameworks/Python.framework/Versions/3.8/include/python3.8/)
+target_include_directories(python_school PRIVATE ${PYTHON_INCLUDE_DIRS})
+target_link_directories(python_school PRIVATE /usr/local/Cellar/python@3.8/3.8.2/Frameworks/Python.framework/Versions/3.8/lib/)
+target_link_libraries(python_school PRIVATE school)  
+target_link_libraries(python_school PRIVATE python3.8)
+
+#set_property(SOURCE school.i PROPERTY SWIG_MODULE_NAME java_school)
 set_property(SOURCE school.i PROPERTY COMPILE_OPTIONS
   -package com.tobe.school
 )
-
 swig_add_library(java_school
   TYPE SHARED
   LANGUAGE java
   OUTPUT_DIR ${PROJECT_SOURCE_DIR}/swig_java_demo/src/main/java/com/tobe/school/
   SOURCES	school.i)
-
 #target_include_directories(java_school PRIVATE ${JNI_INCLUDE_DIRS})
 target_include_directories(java_school PRIVATE /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/include/)
 target_include_directories(java_school PRIVATE /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/include/darwin/)
-
 target_link_libraries(java_school PRIVATE school)
 if(APPLE)
   set_target_properties(java_school PROPERTIES
