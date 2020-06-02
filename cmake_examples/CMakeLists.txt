@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 
-project(Tutorial)
+project (cmake_examples)
 
-add_executable(Tutorial tutorial.cpp)
+add_subdirectory(say-hello)
+add_subdirectory(hello-exec)
